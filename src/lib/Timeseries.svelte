@@ -13,7 +13,9 @@
 	} from 'chart.js';
 	import autocolors from 'chartjs-plugin-autocolors';
 	import zoomPlugin from 'chartjs-plugin-zoom';
+	import randomColor from 'randomcolor';
 	import { onMount } from 'svelte';
+	import type { Data, Signals } from './types';
 
 	Chart.register(autocolors);
 	Chart.register(zoomPlugin);
@@ -27,6 +29,11 @@
 		Tooltip,
 		Legend
 	);
+
+	/* let color = randomColor({ luminosity: 'light', hue: 'green', count: 2 }); */
+	/* console.log('Color is ', color); */
+	export let time: Data;
+	export let data: Signals;
 
 	let title = 'test';
 	let chartElem: HTMLCanvasElement;
@@ -64,6 +71,7 @@
 	};
 	let options: ChartOptions = {
 		responsive: true,
+		maintainAspectRatio: false,
 		plugins: {
 			zoom: zoomOptions,
 			title: {
@@ -74,14 +82,28 @@
 					weight: 'bold'
 				}
 			},
-			autocolors
+			autocolors: {
+				mode: 'dataset'
+			},
+			legend: {
+				position: 'bottom'
+			}
 		},
 		scales: {
 			x: {
 				display: true,
 				title: {
 					display: true,
-					text: 'Time (s)'
+					text: time.name
+				},
+				ticks: {
+					/* sampleSize: 100, */
+					/* autoSkipPadding: 30, */
+					/* maxTicksLimit: 11, */
+					includeBounds: true,
+					major: {
+						enabled: true
+					}
 				}
 			},
 			y: {
@@ -93,19 +115,31 @@
 			}
 		},
 		interaction: {
-			intersect: true,
+			intersect: false,
 			mode: 'index'
+		},
+		elements: {
+			point: {
+				borderWidth: 0,
+				radius: 10,
+				backgroundColor: 'rgba(0,0,0,0)'
+			}
 		}
 	};
+	let datasets = data.data.map((d) => {
+		return {
+			label: d.name,
+			data: d.data,
+			fill: false,
+			radius: 0
+		};
+	});
 	onMount(() => {
 		chart = new Chart(chartElem, {
 			type: 'line',
 			data: {
-				labels: ['0', '1', '2', '3'],
-				datasets: [
-					{ label: 'test1', data: [20, 10, 30, 40], fill: false },
-					{ label: 'test2', data: [10, 5, 15, 20], fill: false }
-				]
+				labels: time.data,
+				datasets: datasets
 			},
 			options
 		});
