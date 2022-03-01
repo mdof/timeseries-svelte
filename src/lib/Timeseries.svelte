@@ -71,7 +71,7 @@
 	};
 	let options: ChartOptions = {
 		responsive: true,
-		maintainAspectRatio: false,
+		maintainAspectRatio: true,
 		plugins: {
 			zoom: zoomOptions,
 			title: {
@@ -96,10 +96,12 @@
 					display: true,
 					text: time.name
 				},
+				type: 'linear',
+				beginAtZero: true,
 				ticks: {
-					/* sampleSize: 100, */
-					/* autoSkipPadding: 30, */
-					/* maxTicksLimit: 11, */
+					autoSkip: true,
+					maxRotation: 0,
+					maxTicksLimit: 21,
 					includeBounds: true,
 					major: {
 						enabled: true
@@ -123,6 +125,9 @@
 				borderWidth: 0,
 				radius: 10,
 				backgroundColor: 'rgba(0,0,0,0)'
+			},
+			line: {
+				borderWidth: 1
 			}
 		}
 	};
