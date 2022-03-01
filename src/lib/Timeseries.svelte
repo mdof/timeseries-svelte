@@ -34,51 +34,80 @@
 	/* console.log('Color is ', color); */
 	export let time: Data;
 	export let data: Signals;
+	// Style config
+	export let backgroundColor: string = '#FFFFFF';
 
-	let title = 'test';
+	/* let limits: { x: { min: number; max: number }; y: { min: number; max: number } }; */
+	let limits: { x: { min: number; max: number }; y: { min: number; max: number } } = {
+		x: { min: 0, max: 0 },
+		y: { min: 0, max: 0 }
+	};
+	limits.x.min = time.data[0];
+	limits.x.max = Math.round(time.data[time.data.length - 1]);
+	let ymin = 0;
+	let ymax = 0;
+	for (let sigData of data.data) {
+		if (ymin > sigData.min) ymin = Math.floor(sigData.min);
+		if (ymax < sigData.max) ymax = Math.ceil(sigData.max);
+	}
+	limits.y.min = ymin;
+	limits.y.max = ymax;
+	console.log('Data ', data);
+	console.log('Limits ', limits);
+
 	let chartElem: HTMLCanvasElement;
 	let chart: Chart;
+	let backgroundColorPlugin = {
+		id: 'custom_canvas_background_color',
+		beforeDraw: (chart) => {
+			const ctx = chart.canvas.getContext('2d');
+			ctx.save();
+			ctx.globalCompositeOperation = 'destination-over';
+			ctx.fillStyle = backgroundColor;
+			ctx.fillRect(0, 0, chart.width, chart.height);
+			ctx.restore();
+		}
+	};
 	let zoomOptions = {
 		pan: {
 			enabled: true,
 			mode: 'xy'
+			/* limits: { */
+			/*     x: { */
+			/*         min: 0, */
+			/*         max: 100 */
+			/*     } */
+			/* } */
 		},
 		zoom: {
-			wheel: {
-				enabled: true
-			},
-			pinch: {
-				enabled: true
-			},
-			mode: 'xy'
-		}
-	};
-	zoomOptions = {
-		pan: {
-			enabled: true,
-			mode: 'xy',
-			modifierKey: 'shift'
-		},
-		zoom: {
-			mode: 'xy',
+			mode: 'x',
 			drag: {
 				enabled: true,
+				mode: 'xy',
 				borderColor: 'rgb(54, 162, 235)',
 				borderWidth: 1,
-				backgroundColor: 'rgba(54, 162, 235, 0.3)'
+				backgroundColor: 'rgba(54, 162, 235, 0.3)',
+				modifierKey: 'shift'
+			},
+			wheel: {
+				enabled: true
 			}
+		},
+		limits: {
+			/* y: limits.y, */
+			x: limits.x
 		}
 	};
 	let options: ChartOptions = {
 		responsive: true,
-		maintainAspectRatio: true,
+		maintainAspectRatio: false,
 		plugins: {
 			zoom: zoomOptions,
 			title: {
 				display: true,
-				text: title,
+				text: data.title,
 				font: {
-					size: 18,
+					size: 14,
 					weight: 'bold'
 				}
 			},
@@ -96,6 +125,8 @@
 					display: true,
 					text: time.name
 				},
+				min: limits.x.min,
+				max: limits.x.max,
 				type: 'linear',
 				beginAtZero: true,
 				ticks: {
@@ -110,9 +141,12 @@
 			},
 			y: {
 				display: true,
+				type: 'linear',
+				/* min: limits.y.min, */
+				/* max: limits.y.max, */
 				title: {
 					display: true,
-					text: 'Value'
+					text: data.units
 				}
 			}
 		},
@@ -146,8 +180,15 @@
 				labels: time.data,
 				datasets: datasets
 			},
-			options
+			options,
+			plugins: [backgroundColorPlugin]
 		});
+		console.log(chart.scales.y.max);
+		console.log(chart.scales.y.min);
+		/* chart.zoom. */
+		console.log(chart);
+		chart.zoomScale('y', { min: chart.scales.y.min, max: chart.scales.y.max }, 'resize');
+		chart.update();
 	});
 
 	function resetZoom() {
@@ -155,5 +196,7 @@
 	}
 </script>
 
-<canvas bind:this={chartElem} width="400" height="100" aria-label={title} role="img" />
-<button on:click={resetZoom}>Reset zoom</button>
+<div class="relative w-full h-full">
+	<canvas bind:this={chartElem} width="400" height="100" aria-label={data.title} role="img" />
+	<button class="absolute right-0 top-0" on:click={resetZoom}>Reset zoom</button>
+</div>
