@@ -37,7 +37,6 @@
 	// Style config
 	export let backgroundColor: string = '#FFFFFF';
 
-	/* let limits: { x: { min: number; max: number }; y: { min: number; max: number } }; */
 	let limits: { x: { min: number; max: number }; y: { min: number; max: number } } = {
 		x: { min: 0, max: 0 },
 		y: { min: 0, max: 0 }
@@ -50,8 +49,8 @@
 		if (ymin > sigData.min) ymin = Math.floor(sigData.min);
 		if (ymax < sigData.max) ymax = Math.ceil(sigData.max);
 	}
-	limits.y.min = 0.8 * ymin;
-	limits.y.max = 1.2 * ymax;
+	limits.y.min = ymin;
+	limits.y.max = ymax;
 	console.log('Data ', data);
 	console.log('Limits ', limits);
 
@@ -72,12 +71,6 @@
 		pan: {
 			enabled: true,
 			mode: 'x'
-			/* limits: { */
-			/*     x: { */
-			/*         min: 0, */
-			/*         max: 100 */
-			/*     } */
-			/* } */
 		},
 		zoom: {
 			mode: 'x',
@@ -94,7 +87,6 @@
 			}
 		},
 		limits: {
-			/* y: limits.y, */
 			x: limits.x
 		}
 	};
@@ -146,8 +138,6 @@
 			y: {
 				display: true,
 				type: 'linear',
-				/* min: limits.y.min, */
-				/* max: limits.y.max, */
 				title: {
 					display: true,
 					text: data.units
@@ -187,12 +177,6 @@
 			options,
 			plugins: [backgroundColorPlugin]
 		});
-		console.log(chart.scales.y.max);
-		console.log(chart.scales.y.min);
-		/* chart.zoom. */
-		console.log(chart);
-		/* chart.zoomScale('y', { min: chart.scales.y.min, max: chart.scales.y.max }, 'resize'); */
-		/* chart.update(); */
 	});
 
 	function resetZoom() {
