@@ -5,9 +5,9 @@
 	let time: number[] = [];
 	let data1 = [];
 	let data2 = [];
-	let maxTime = 100;
+	let maxTime = 600;
 	let minTime = 0;
-	for (let i = minTime; i <= maxTime; i += 0.1) {
+	for (let i = minTime; i <= maxTime; i += 0.5) {
 		time.push(i);
 		data1.push(Math.random() * 100 + 1);
 		data2.push(Math.random() * 100 - 50);

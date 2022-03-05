@@ -50,8 +50,8 @@
 		if (ymin > sigData.min) ymin = Math.floor(sigData.min);
 		if (ymax < sigData.max) ymax = Math.ceil(sigData.max);
 	}
-	limits.y.min = ymin;
-	limits.y.max = ymax;
+	limits.y.min = 0.8 * ymin;
+	limits.y.max = 1.2 * ymax;
 	console.log('Data ', data);
 	console.log('Limits ', limits);
 
@@ -71,7 +71,7 @@
 	let zoomOptions = {
 		pan: {
 			enabled: true,
-			mode: 'xy'
+			mode: 'x'
 			/* limits: { */
 			/*     x: { */
 			/*         min: 0, */
@@ -116,6 +116,10 @@
 			},
 			legend: {
 				position: 'bottom'
+			},
+			decimation: {
+				enabled: false,
+				algorithm: 'min-max'
 			}
 		},
 		scales: {
@@ -187,8 +191,8 @@
 		console.log(chart.scales.y.min);
 		/* chart.zoom. */
 		console.log(chart);
-		chart.zoomScale('y', { min: chart.scales.y.min, max: chart.scales.y.max }, 'resize');
-		chart.update();
+		/* chart.zoomScale('y', { min: chart.scales.y.min, max: chart.scales.y.max }, 'resize'); */
+		/* chart.update(); */
 	});
 
 	function resetZoom() {
