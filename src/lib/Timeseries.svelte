@@ -1,3 +1,22 @@
+<script context="module" lang="ts">
+	/* let current: Chart; */
+	let listCharts: Chart[] = [];
+	function zoomOthers(z: ZoomCmd) {
+		console.log('Zooming others');
+		for (let chart of listCharts) {
+			if (chart.id != z.idChart) {
+				console.log('Chart id is ', chart.id);
+				chart.zoomScale('x', z.x, 'zoom');
+			}
+		}
+	}
+
+	export type ZoomCmd = {
+		idChart: string;
+		x: { min: number; max: number };
+	};
+</script>
+
 <script lang="ts">
 	import {
 		Chart,
@@ -14,7 +33,7 @@
 	import autocolors from 'chartjs-plugin-autocolors';
 	import zoomPlugin from 'chartjs-plugin-zoom';
 	import randomColor from 'randomcolor';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import type { Data, Signals } from './types';
 
 	Chart.register(autocolors);
@@ -84,6 +103,13 @@
 			},
 			wheel: {
 				enabled: true
+			},
+			onZoom({ chart }) {
+				let zoomToOthers: ZoomCmd = {
+					idChart: chart.id,
+					x: { min: chart.scales.x.min, max: chart.scales.x.max }
+				};
+				zoomOthers(zoomToOthers);
 			}
 		},
 		limits: {
@@ -177,6 +203,13 @@
 			options,
 			plugins: [backgroundColorPlugin]
 		});
+		listCharts.push(chart);
+		console.log('Chart ', chart);
+	});
+	onDestroy(() => {
+		let idxChart = listCharts.findIndex((c) => c.id == chart.id);
+		listCharts.splice(idxChart, 1);
+		chart.destroy();
 	});
 
 	function resetZoom() {

@@ -48,6 +48,14 @@
 </script>
 
 <h1>Welcome to SvelteKit</h1>
+
+<div class="w-9/12 h-80">
+	<Timeseries time={time_axis} {data} backgroundColor={'#DCDCDC'} />
+</div>
+<div class="w-9/12 h-80">
+	<Timeseries time={time_axis} {data} backgroundColor={'#DCDCDC'} />
+</div>
+
 <div class="w-9/12 h-80">
 	<Timeseries time={time_axis} {data} backgroundColor={'#DCDCDC'} />
 </div>
