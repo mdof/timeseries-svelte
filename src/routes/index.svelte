@@ -47,15 +47,17 @@
 	}
 </script>
 
-<h1>Welcome to SvelteKit</h1>
+<section class="px-10">
+	<h1 class="my-10">timeseries-svelte</h1>
 
-<div class="w-9/12 h-80">
-	<Timeseries time={time_axis} {data} backgroundColor={'#DCDCDC'} />
-</div>
-<div class="w-9/12 h-80">
-	<Timeseries time={time_axis} {data} backgroundColor={'#DCDCDC'} />
-</div>
+	<div class="w-9/12 h-80">
+		<Timeseries time={time_axis} {data} />
+	</div>
+	<div class="w-9/12 h-80">
+		<Timeseries time={time_axis} {data} />
+	</div>
 
-<div class="w-9/12 h-80">
-	<Timeseries time={time_axis} {data} backgroundColor={'#DCDCDC'} />
-</div>
+	<div class="w-9/12 h-80">
+		<Timeseries time={time_axis} {data} backgroundColor={'#DCDCDC'} />
+	</div>
+</section>
