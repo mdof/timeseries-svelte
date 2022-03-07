@@ -89,7 +89,14 @@
 	let zoomOptions = {
 		pan: {
 			enabled: true,
-			mode: 'x'
+			mode: 'x',
+			onPanComplete({ chart }) {
+				let zoomToOthers: ZoomCmd = {
+					idChart: chart.id,
+					x: { min: chart.scales.x.min, max: chart.scales.x.max }
+				};
+				zoomOthers(zoomToOthers);
+			}
 		},
 		zoom: {
 			mode: 'x',
@@ -104,7 +111,7 @@
 			wheel: {
 				enabled: true
 			},
-			onZoom({ chart }) {
+			onZoomComplete({ chart }) {
 				let zoomToOthers: ZoomCmd = {
 					idChart: chart.id,
 					x: { min: chart.scales.x.min, max: chart.scales.x.max }
@@ -213,7 +220,8 @@
 	});
 
 	function resetZoom() {
-		chart.resetZoom();
+		/* chart.resetZoom(); */
+		listCharts.forEach((c) => c.resetZoom());
 	}
 </script>
 
