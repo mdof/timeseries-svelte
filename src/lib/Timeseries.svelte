@@ -56,22 +56,11 @@
 	// Style config
 	export let backgroundColor: string = '#FFFFFF';
 
-	let limits: { x: { min: number; max: number }; y: { min: number; max: number } } = {
-		x: { min: 0, max: 0 },
-		y: { min: 0, max: 0 }
+	let limits: { x: { min: number; max: number } } = {
+		x: { min: 0, max: 0 }
 	};
 	limits.x.min = time.data[0];
 	limits.x.max = Math.round(time.data[time.data.length - 1]);
-	let ymin = 0;
-	let ymax = 0;
-	for (let sigData of data.data) {
-		if (ymin > sigData.min) ymin = Math.floor(sigData.min);
-		if (ymax < sigData.max) ymax = Math.ceil(sigData.max);
-	}
-	limits.y.min = ymin;
-	limits.y.max = ymax;
-	console.log('Data ', data);
-	console.log('Limits ', limits);
 
 	let chartElem: HTMLCanvasElement;
 	let chart: Chart;
