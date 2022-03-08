@@ -1,7 +1,7 @@
 {
 	"name": "@mdof/timeseries-svelte",
 	"description": "Svelte component for timeseries plotting",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
