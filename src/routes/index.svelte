@@ -1,6 +1,10 @@
 <script lang="ts">
 	import Timeseries from '$lib/Timeseries.svelte';
 	import type { Data, Signals } from '$lib/types';
+	import randomColor from 'randomcolor';
+	let color = randomColor({ luminosity: 'light', count: 20 });
+
+	console.log('Color is ', color);
 
 	let time: number[] = [];
 	let data1 = [];
@@ -49,6 +53,10 @@
 
 <section class="px-10">
 	<h1 class="my-10">timeseries-svelte</h1>
+
+	{#each color as c, i}
+		<div style="background-color: {c}" class="w-10 h-10">{c}</div>
+	{/each}
 
 	<div class="w-9/12 h-80">
 		<Timeseries time={time_axis} {data} />
