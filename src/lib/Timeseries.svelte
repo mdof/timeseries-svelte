@@ -32,7 +32,6 @@
 	} from 'chart.js';
 	import autocolors from 'chartjs-plugin-autocolors';
 	import zoomPlugin from 'chartjs-plugin-zoom';
-	import randomColor from 'randomcolor';
 	import { onDestroy, onMount } from 'svelte';
 	import type { Data, Signals } from './types';
 
@@ -49,8 +48,6 @@
 		Legend
 	);
 
-	/* let color = randomColor({ luminosity: 'light', hue: 'green', count: 2 }); */
-	/* console.log('Color is ', color); */
 	export let time: Data;
 	export let data: Signals;
 	// Style config
