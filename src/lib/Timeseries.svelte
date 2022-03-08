@@ -28,7 +28,9 @@
 		CategoryScale,
 		Tooltip,
 		Legend,
-		type ChartOptions
+		type ChartOptions,
+		type InteractionMode,
+		DecimationAlgorithm
 	} from 'chart.js';
 	import autocolors from 'chartjs-plugin-autocolors';
 	import zoomPlugin from 'chartjs-plugin-zoom';
@@ -72,48 +74,46 @@
 			ctx.restore();
 		}
 	};
-	let zoomOptions = {
-		pan: {
-			enabled: true,
-			mode: 'x',
-			onPanComplete({ chart }) {
-				let zoomToOthers: ZoomCmd = {
-					idChart: chart.id,
-					x: { min: chart.scales.x.min, max: chart.scales.x.max }
-				};
-				zoomOthers(zoomToOthers);
-			}
-		},
-		zoom: {
-			mode: 'x',
-			drag: {
-				enabled: true,
-				mode: 'xy',
-				borderColor: 'rgb(54, 162, 235)',
-				borderWidth: 1,
-				backgroundColor: 'rgba(54, 162, 235, 0.3)',
-				modifierKey: 'shift'
-			},
-			wheel: {
-				enabled: true
-			},
-			onZoomComplete({ chart }) {
-				let zoomToOthers: ZoomCmd = {
-					idChart: chart.id,
-					x: { min: chart.scales.x.min, max: chart.scales.x.max }
-				};
-				zoomOthers(zoomToOthers);
-			}
-		},
-		limits: {
-			x: limits.x
-		}
-	};
-	let options: ChartOptions = {
+	let options = {
 		responsive: true,
 		maintainAspectRatio: false,
 		plugins: {
-			zoom: zoomOptions,
+			zoom: {
+				pan: {
+					enabled: true,
+					mode: 'x',
+					onPanComplete({ chart }) {
+						let zoomToOthers: ZoomCmd = {
+							idChart: chart.id,
+							x: { min: chart.scales.x.min, max: chart.scales.x.max }
+						};
+						zoomOthers(zoomToOthers);
+					}
+				},
+				zoom: {
+					mode: 'x',
+					drag: {
+						enabled: true,
+						borderColor: 'rgb(54, 162, 235)',
+						borderWidth: 1,
+						backgroundColor: 'rgba(54, 162, 235, 0.3)',
+						modifierKey: 'shift'
+					},
+					wheel: {
+						enabled: true
+					},
+					onZoomComplete({ chart }) {
+						let zoomToOthers: ZoomCmd = {
+							idChart: chart.id,
+							x: { min: chart.scales.x.min, max: chart.scales.x.max }
+						};
+						zoomOthers(zoomToOthers);
+					}
+				},
+				limits: {
+					x: limits.x
+				}
+			},
 			title: {
 				display: true,
 				text: data.title,
@@ -130,7 +130,7 @@
 			},
 			decimation: {
 				enabled: false,
-				algorithm: 'min-max'
+				algorithm: 'min-max' as DecimationAlgorithm
 			}
 		},
 		scales: {
@@ -165,7 +165,7 @@
 		},
 		interaction: {
 			intersect: false,
-			mode: 'index'
+			mode: 'index' as InteractionMode
 		},
 		elements: {
 			point: {
