@@ -2,12 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.0.4](https://github.com/mdof/timeseries-svelte/compare/v0.0.3...v0.0.4) (2022-03-08)
+### [0.0.5](https://github.com/mdof/timeseries-svelte/compare/v0.0.4...v0.0.5) (2022-03-09)
 
+### [0.0.4](https://github.com/mdof/timeseries-svelte/compare/v0.0.3...v0.0.4) (2022-03-08)
 
 ### Features
 
-* added index ([9f85be8](https://github.com/mdof/timeseries-svelte/commit/9f85be87d0f2190a797f40d7bb22d9984de6c4f7))
+- added index ([9f85be8](https://github.com/mdof/timeseries-svelte/commit/9f85be87d0f2190a797f40d7bb22d9984de6c4f7))
 
 ### [0.0.3](https://github.com/mdof/timeseries-svelte/compare/v0.0.2...v0.0.3) (2022-03-08)
 
