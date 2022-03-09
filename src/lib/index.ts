@@ -1,3 +1,4 @@
 import Timeseries from './Timeseries.svelte';
+import type { Data, Signals } from './types';
 
-export { Timeseries };
+export { Timeseries, Data, Signals };
