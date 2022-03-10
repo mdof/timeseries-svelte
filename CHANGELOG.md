@@ -2,12 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.0.9](https://github.com/mdof/timeseries-svelte/compare/v0.0.8...v0.0.9) (2022-03-10)
+### [0.0.10](https://github.com/mdof/timeseries-svelte/compare/v0.0.9...v0.0.10) (2022-03-10)
 
 
 ### Features
 
-* no buttons ([e3f72b0](https://github.com/mdof/timeseries-svelte/commit/e3f72b0b9aa0048327f3e5d0fdb4d56983c500f0))
+* on double click resetZoom ([a5d3b2e](https://github.com/mdof/timeseries-svelte/commit/a5d3b2e7a1a14a2af3a3e46a00e8762beea039c3))
+
+### [0.0.9](https://github.com/mdof/timeseries-svelte/compare/v0.0.8...v0.0.9) (2022-03-10)
+
+### Features
+
+- no buttons ([e3f72b0](https://github.com/mdof/timeseries-svelte/commit/e3f72b0b9aa0048327f3e5d0fdb4d56983c500f0))
 
 ### [0.0.8](https://github.com/mdof/timeseries-svelte/compare/v0.0.7...v0.0.8) (2022-03-09)
 
