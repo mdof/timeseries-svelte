@@ -211,4 +211,11 @@
 	}
 </script>
 
-<canvas bind:this={chartElem} width="400" height="100" aria-label={data.title} role="img" />
+<canvas
+	on:dblclick={resetZoom}
+	bind:this={chartElem}
+	width="400"
+	height="100"
+	aria-label={data.title}
+	role="img"
+/>
