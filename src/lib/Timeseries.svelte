@@ -211,7 +211,4 @@
 	}
 </script>
 
-<div class="relative w-full h-full">
-	<canvas bind:this={chartElem} width="400" height="100" aria-label={data.title} role="img" />
-	<button class="absolute right-0 top-0" on:click={resetZoom}>Reset zoom</button>
-</div>
+<canvas bind:this={chartElem} width="400" height="100" aria-label={data.title} role="img" />
